@@ -1,4 +1,4 @@
-namespace Api.Domain;
+namespace Api.Domain.Entities;
 
 public class Job: Entity<Guid>
 {
