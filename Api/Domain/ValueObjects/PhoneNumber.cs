@@ -1,6 +1,6 @@
 namespace Api.Domain.ValueObjects;
 
-public record PhoneNumber
+public partial record PhoneNumber
 {
     private string Value { get; init; }
 
@@ -11,10 +11,12 @@ public record PhoneNumber
         {
             throw new ArgumentException("Phone number cannot be null or empty.", nameof(value));
         }
+
+        // Remove any non-digit characters except for the leading '+' sign
+        value = CleanPhoneRegex().Replace(value, "");
         
         // Extract the digits from the input string
-        value = System.Text.RegularExpressions.Regex.Replace(value, @"[^\d+]", "");
-        if (value.Length < 10 || value.Length > 15)
+        if (value.Length is < 10 or > 15)
         {
             throw new ArgumentException("Phone number must be between 10 and 15 digits.", nameof(value));
         }
@@ -30,9 +32,12 @@ public record PhoneNumber
         // Format the phone number as needed, e.g., (123) 456-7890
         return Value.Length switch
         {
-            10 => $"({Value.Substring(0, 3)}) {Value.Substring(3, 3)}-{Value.Substring(6)}",
-            11 => $"+{Value[0]} ({Value.Substring(1, 3)}) {Value.Substring(4, 3)}-{Value.Substring(7)}",
+            10 => $"({Value[..3]}) {Value[3..6]}-{Value[6..]}",
+            11 => $"+{Value[0]} ({Value[1..4]}) {Value[4..7]}-{Value[7..]}",
             _ => Value // Return as is for lengths other than 10 or 11
         };
     }
+
+    [System.Text.RegularExpressions.GeneratedRegex(@"[^\d+]")]
+    private static partial System.Text.RegularExpressions.Regex CleanPhoneRegex();
 }

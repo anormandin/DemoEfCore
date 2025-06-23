@@ -1,3 +1,3 @@
 # Entity Framework Core Demo
 
-Simple Ef Core demo requested for someone
+Simple Ef Core demo requested by someone
