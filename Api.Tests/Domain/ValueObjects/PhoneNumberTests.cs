@@ -1,6 +1,6 @@
 using Api.Domain.ValueObjects;
 
-namespace Api.Tests;
+namespace Api.Tests.Domain.ValueObjects;
 
 public class PhoneNumberTests
 {
