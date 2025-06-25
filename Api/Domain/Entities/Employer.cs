@@ -1,15 +1,22 @@
 namespace Api.Domain.Entities;
 
-public class Employer: Entity<Guid>
+public class Employer : Entity<Guid>
 {
-    public required string Name { get; init; }
-    public required string Address { get; init; }
-    public required string City { get; init; }
-    public required string State { get; init; }
+    public string Name { get; init; }
+    public string Address { get; init; }
+    public string City { get; init; }
+    public string State { get; init; }
     public string? PhoneNumber { get; init; }
-    
-    private Employer() { }
-    
+
+    private Employer(Guid id, string name, string address, string city, string state, string? phoneNumber) : base(id)
+    {
+        Name = name;
+        Address = address;
+        City = city;
+        State = state;
+        PhoneNumber = phoneNumber;
+    }
+
     public static Employer Create(
         string name,
         string address,
@@ -17,14 +24,13 @@ public class Employer: Entity<Guid>
         string state,
         string? phoneNumber = null)
     {
-        return new Employer
-        {
-            Id = Guid.NewGuid(),
-            Name = name,
-            Address = address,
-            City = city,
-            State = state,
-            PhoneNumber = phoneNumber
-        };
+        return new Employer(
+            id: Guid.NewGuid(),
+            name: name,
+            address: address,
+            city: city,
+            state: state,
+            phoneNumber: phoneNumber
+        );
     }
 }

@@ -2,7 +2,12 @@ namespace Api.Domain;
 
 public abstract class Entity<TId> where TId : notnull
 {
-    public required TId Id { get; init; }
+    protected Entity(TId id)
+    {
+        Id = id;
+    }
+
+    public TId Id { get; private set; }
 
     /// <summary>
     /// Two entities are considered equal if their Ids are equal.

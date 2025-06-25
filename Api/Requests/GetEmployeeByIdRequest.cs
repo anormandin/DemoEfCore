@@ -1,6 +1,6 @@
 namespace Api.Requests;
 
-public class GetEmployeByIdRequest
+public class GetEmployeeByIdRequest
 {
     public required Guid Id { get; init; }
 }

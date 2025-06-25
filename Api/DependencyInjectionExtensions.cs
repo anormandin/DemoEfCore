@@ -14,7 +14,7 @@ public static class DependencyInjectionExtensions
             .AsImplementedInterfaces()
             .WithScopedLifetime());
         
-        services.AddValidatorsFromAssemblyContaining<CreateEmployeRequestValidator>();
+        services.AddValidatorsFromAssemblyContaining<CreateEmployeeRequestValidator>();
 
         return services;
     }

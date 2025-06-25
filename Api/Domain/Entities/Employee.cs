@@ -1,28 +1,36 @@
+using Api.Application.Services;
 using Api.Requests;
 
 namespace Api.Domain.Entities;
 
 public class Employee : Entity<Guid>
 {
-    public required string FirstName { get; init; }
-    public required string LastName { get; init; }
-    public required string Email { get; init; }
-    public DateTime? DateOfBirth { get; init; }
+    public string FirstName { get; private set; }
+    public string LastName { get; private set; }
+    public string Email { get; private set; }
+    public DateTime? DateOfBirth { get; private set; }
 
-    // Ef Core
-    private Employee() { }
-
-    public static Employee Create(CreateEmployeRequest request)
+    private Employee(Guid id, string firstName, string lastName, string email, DateTime? dateOfBirth) : base(id)
     {
-        var employee = new Employee
-        {
-            Id = Guid.NewGuid(),
-            FirstName = request.FirstName,
-            LastName = request.LastName,
-            Email = request.Email,
-            DateOfBirth = request.DateOfBirth
-        };
+        FirstName = firstName;
+        LastName = lastName;
+        Email = email;
+        DateOfBirth = dateOfBirth;
+    }
 
-        return employee;
+    public static Employee Create(
+        string firstName, string lastName, string email, DateTime? dateOfBirth)
+    {
+        return new Employee(Guid.NewGuid(), firstName, lastName, email, dateOfBirth);
+    }
+
+    public Employee Update(string firstName, string lastName, string email, DateTime? dateOfBirth)
+    {
+        FirstName = firstName;
+        LastName = lastName;
+        Email = email;
+        DateOfBirth = dateOfBirth;
+
+        return this;
     }
 }

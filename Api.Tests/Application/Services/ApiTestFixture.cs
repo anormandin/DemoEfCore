@@ -15,9 +15,9 @@ public class ApiTestFixture : IDisposable
         ServiceProvider = services.BuildServiceProvider();
     }
 
-    public IEmployeService GetEmployeService()
+    public IEmployeeService GetEmployeeService()
     {
-        return ServiceProvider.GetRequiredService<IEmployeService>();
+        return ServiceProvider.GetRequiredService<IEmployeeService>();
     }
 
     public void Dispose()
